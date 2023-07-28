@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "760966203382",
+    "project_id": "givision",
+    "storage_bucket": "givision.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760966203382:android:873818b4f47ea9e6bbe9d7",
+        "android_client_info": {
+          "package_name": "com.example.givison"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760966203382-rucojdfnkq9e02061tveg2d9df7je8uj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCUfsTSfcetMl6YGt8qUvsRVK1MxcnpM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760966203382-rucojdfnkq9e02061tveg2d9df7je8uj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
