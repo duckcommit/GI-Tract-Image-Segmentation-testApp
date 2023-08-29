@@ -8,6 +8,6 @@ const tCardBgColor=Color(0xFFF7F6F1);
 const tWhiteColor=Color(0xffffffff);
 const tDarkColor=Color(0xFF000000);
 
-const tOnboardingPage1Color = Color.fromRGBO(227, 214, 240, 1);
-const tOnboardingPage2Color = Color.fromARGB(255, 159, 243, 243);
-const tOnboardingPage3Color = Color.fromARGB(255, 255, 255, 255);
+const tOnboardingPage1Color = Color.fromRGBO(184, 190, 221, 1);
+const tOnboardingPage2Color = Color.fromRGBO(239, 195, 230, 1);
+const tOnboardingPage3Color = Color.fromRGBO(254, 254, 254, 1);

@@ -60,6 +60,7 @@ class _VerifyState extends State<Verify>{
   Widget build(BuildContext context)=>isEmailVerified
     ? Dashboard()
     : Scaffold(
+      backgroundColor: Color.fromRGBO(184, 190, 221, 1),
       body:Container(
         padding: EdgeInsets.all(tDefaultSize),
         child: Column(

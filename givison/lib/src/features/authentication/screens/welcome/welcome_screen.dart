@@ -9,11 +9,12 @@ import 'package:givison/src/features/authentication/screens/signup/signup_screen
 class WelcomeScreen extends StatelessWidget{
   const WelcomeScreen({Key? key}): super(key:key);
 
+  
   @override
   Widget build(BuildContext context){
     var height=MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(254, 219, 188, 1),
+      backgroundColor: Color.fromRGBO(240, 230, 239, 1),
       body:Container(
         padding: EdgeInsets.all(tDefaultSize),
         child: Column(

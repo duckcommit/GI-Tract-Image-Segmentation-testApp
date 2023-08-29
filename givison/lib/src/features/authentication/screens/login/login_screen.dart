@@ -7,6 +7,7 @@ import 'package:givison/src/features/authentication/screens/signup/signup_screen
 import 'package:givison/src/features/authentication/screens/dashboard/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:givison/src/utils/utils.dart';
+import 'package:givison/src/features/authentication/screens/dashboard/email.dart';
 
 class LoginScreen extends StatefulWidget{
   @override
@@ -109,9 +110,32 @@ class _LoginScreenState extends State<LoginScreen> {
                             children:[
                               Text(tForgetPasswordTitle, style:Theme.of(context).textTheme.displayMedium,),
                               Text(tForgetPasswordSubTitle, style:Theme.of(context).textTheme.titleSmall,),
-                              const SizedBox(height: 120.0,),
+                              const SizedBox(height: 60.0,),
                               GestureDetector(
                                 onTap: () {Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgetPasswordMailScreen()));},
+                                child: Container(
+                                  padding: const EdgeInsets.all(20.0),
+                                  decoration:BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    color: Colors.grey.shade200
+                                  ),
+                                  child: Row(children: [
+                                    const Icon(Icons.phone_android_outlined,size: 60.0,),
+                                    SizedBox(width: 20.0,),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(tmob, style:Theme.of(context).textTheme.displayMedium,),
+                                        Text(tResetViaPh, style:Theme.of(context).textTheme.titleSmall,),
+                                      ],
+                                    )
+                                  ]),
+                                ),
+                              ),
+                              const SizedBox(height: 40.0,),
+                              GestureDetector(
+                                onTap: () {resetPassword();
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> EmailScreen()));},
                                 child: Container(
                                   padding: const EdgeInsets.all(20.0),
                                   decoration:BoxDecoration(
@@ -130,7 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     )
                                   ]),
                                 ),
-                              )
+                              ),
+
+                      
                             ]
                           ),
                         ),);
@@ -159,4 +185,12 @@ class _LoginScreenState extends State<LoginScreen> {
         )),
     );
   }
+  Future resetPassword()async{
+    try{
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text.trim());
+    } on FirebaseAuthException catch (e){
+      print(e);
+    }
+  }
+
 }

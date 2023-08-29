@@ -6,24 +6,24 @@ import 'package:givison/src/constants/text_strings.dart';
 import 'package:givison/src/features/authentication/screens/login/login_screen.dart';
 import 'package:givison/src/features/authentication/screens/signup/signup_screen.dart';
 
-class ErrorScreen extends StatelessWidget{
-  const ErrorScreen({Key? key}): super(key:key);
+class EmailScreen extends StatelessWidget{
+  const EmailScreen({Key? key}): super(key:key);
 
   @override
   Widget build(BuildContext context){
     var height=MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(184, 190, 221, 1),
+      backgroundColor: Color.fromRGBO(249, 238, 238, 1),
       body:Container(
         padding: EdgeInsets.all(tDefaultSize),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image(image: AssetImage(tno), height:height*0.6),
+            Image(image: AssetImage(tveri), height:height*0.6),
             Column(
               children: [
-                Text(tErrorTitle, style: Theme.of(context).textTheme.displayMedium,textAlign: TextAlign.center,),
-                Text(tErrorSubTitle, style: Theme.of(context).textTheme.titleSmall,textAlign: TextAlign.center,),
+                Text(tpw, style: Theme.of(context).textTheme.displayMedium,textAlign: TextAlign.center,),
+                Text(tpws, style: Theme.of(context).textTheme.titleSmall,textAlign: TextAlign.center,),
               ],
             ),
           ],

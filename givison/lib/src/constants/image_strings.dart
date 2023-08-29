@@ -17,3 +17,7 @@ const String tupload= "assets/images/upload.png";
 
 const String tno="assets/images/no.png";
 const String tver="assets/images/verif.png";
+
+const String tveri="assets/images/mailver.png";
+const String tprof="assets/images/drprof.png";
+

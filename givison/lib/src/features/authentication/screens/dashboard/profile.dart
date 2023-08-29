@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:givison/src/constants/image_strings.dart';
 import 'package:givison/src/constants/size.dart';
@@ -10,27 +9,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:givison/src/utils/utils.dart';
 import 'package:givison/src/features/authentication/screens/dashboard/verify_email.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}):super(key:key);
+import '../../../../constants/colors.dart';
+
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({Key? key}):super(key:key);
   
   @override
-  State<SignUpScreen> createState()=> _SignUpScreenState();
+  State<ProfileScreen> createState()=> _ProfileScreen();
 }
 
-class _SignUpScreenState extends State<SignUpScreen>{
+class _ProfileScreen extends State<ProfileScreen>{
   bool loading= false;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final phController = TextEditingController();
-  final nameController = TextEditingController();
-
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String? name;
+  String? Email;
+  String? phno;
+  String? pw;
+  String? Name;
   
-
-  FirebaseAuth _auth = FirebaseAuth.instance;
-
-  final fireStore = FirebaseFirestore.instance.collection("users");
 
   @override
   void dispose(){
@@ -38,50 +39,57 @@ class _SignUpScreenState extends State<SignUpScreen>{
     emailController.dispose();
     passwordController.dispose();
   }
-
-  void loginn(){
-    setState((){
-                                loading = true;
-                              });
-                              _auth.createUserWithEmailAndPassword(
-                                email:emailController.text.toString(),
-                                password:passwordController.text.toString()).then((value){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> Verify()));
-                                  
-
-                                }).onError((error, stackTrace){
-                                  Utils().toastMessage(error.toString());
-                                  
-                            });
-                            }
-
-  void uploadingData() async {
-  await FirebaseFirestore.instance.collection("Users").add({
-    'Name': nameController.text.toString(),
-    'E-mail': emailController.text.toString(),
-    'Phone Number': phController.text.toString(),
-    'Pw': passwordController.text.toString(),
-  });
+  
+void getData()async{
+    User? user = _auth.currentUser;
+    Email = user!.email!;
+    
+    
+    final DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection("users").doc(Email).get();
+    name =userDoc.get("Name");
+    Name=name.toString();
+    phno =userDoc.get("Phone Number");
+    pw =userDoc.get("Pw");
 }
 
-
+_launchURL() async {
+   final Uri url = Uri.parse('mailto:puthen1977@gmail.com');
+   if (!await launchUrl(url)) {
+        throw Exception('Could not launch');
+    }
+}
+  
   @override
+  
   Widget build(BuildContext context) {
     final size= MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(239, 195, 230, 1),
+        
+        appBar: AppBar(
+        title: Text(tprofile, style: Theme.of(context).textTheme.displayMedium),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: tCardBgColor),
+            child: IconButton(onPressed: (){getData();},
+            icon: const Image(image: AssetImage(tman))),
+          )
+        ]
+      ),
+        backgroundColor: Color.fromRGBO(184, 190, 221, 1),
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(tDefaultSize),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image(image: AssetImage(tSignupImg), height: size.height*0.37,),
-                Text(tSignupTitle, style: Theme.of(context).textTheme.displayMedium,),
-                Text(tSignupSubTitle, style: Theme.of(context).textTheme.titleSmall,),
+                Image(image: AssetImage(tprof), height: size.height*0.37,),
 
                 Form(
+                  
                   key: _formKey,
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: tFormHeight-10),
@@ -89,8 +97,8 @@ class _SignUpScreenState extends State<SignUpScreen>{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
-                        controller: nameController,
-                        
+                        readOnly: true,
+                        initialValue: 'Vyshnav',
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.person_outline_outlined),
                           labelText: tFullName,
@@ -106,8 +114,8 @@ class _SignUpScreenState extends State<SignUpScreen>{
                       ),
                       const SizedBox(height: tFormHeight-20,),
                       TextFormField(
-                        controller: emailController,
-                      
+                        initialValue: 'bcs_2021076@gmail.com',
+                        readOnly: true,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.mail_outline_outlined),
                           labelText: tEmail,
@@ -123,7 +131,8 @@ class _SignUpScreenState extends State<SignUpScreen>{
                       ),
                       const SizedBox(height: tFormHeight-20,),
                       TextFormField(
-                        controller: phController,
+                        initialValue: '8129462042',
+                        readOnly: true,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.phone_callback_outlined),
                           labelText: tPhoneNo,
@@ -139,8 +148,8 @@ class _SignUpScreenState extends State<SignUpScreen>{
                       ),
                       const SizedBox(height: tFormHeight-20,),
                       TextFormField(
-                        controller: passwordController,
-                        
+                        initialValue: 'abcdef',
+                        readOnly: true,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.fingerprint),
                           labelText: tPassword,
@@ -156,43 +165,11 @@ class _SignUpScreenState extends State<SignUpScreen>{
                       ),
                       const SizedBox(height: tFormHeight-20),
                       
-                      SizedBox(
-                        width:double.infinity,
-                        child: ElevatedButton(
-                          onPressed: ()async{
-                            if(_formKey.currentState!.validate()){
-                              String email = emailController.text;
-                              if(email.contains('@iiitm.ac.in')){
-                                loginn();
-                              String name = nameController.text;
-                              ;
-                              String ph = phController.text;
-                              String pw = passwordController.text;
-                              String id = DateTime.now().millisecondsSinceEpoch.toString();
-                              fireStore.doc(email).set({
-                                'Name':name,
-                                'Email':email,
-                                'Phone':ph,
-                                'Password':pw
-                              }).then((value){
-
-                              }).onError((error, stackStrace){
-                                Utils().toastMessage(error.toString());
-                              });
-                              }
-                              else{
-                                Fluttertoast.showToast(msg: "Not the Organization Mail");
-                              }
-                            }
-                          }, 
-                          child: Text(tSignup.toUpperCase())
-                        ),
-                      ),
-                      Align(alignment: Alignment.center,child: TextButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));}, child: Text.rich(TextSpan(
-                        text: tAlreadyHaveAnAccount,
+                      Align(alignment: Alignment.center,child: TextButton(onPressed: (){_launchURL();}, child: Text.rich(TextSpan(
+                        text: tedit,
                         style: Theme.of(context).textTheme.titleSmall,
                         children: [
-                          TextSpan(text:tLogin,style: TextStyle(color:Colors.blue)),
+                          TextSpan(text:treq,style: TextStyle(color:Colors.blue)),
                         ])))),
                     ],),
                   ))

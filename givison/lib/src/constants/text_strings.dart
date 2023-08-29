@@ -24,6 +24,7 @@ const String tLoginSubTitle = "Make it work, make it right, make it fast.";
 const String tRememberMe = "Remember Me?";
 const String tAlreadyHaveAnAccount = "Already Have An Account? ";
 const String tEmail="E-Mail";
+const String tmob="Mobile";
 const String tPassword="Password";
 const String tForgetPassword = "Forget Password?";
 const String tNoAccount="Don't have an Account? ";
@@ -36,8 +37,9 @@ const String tSignupTitle = "Get Aboard the GI Vision App";
 const String tSignupSubTitle = "Making MRI Scan Segmentation easier";
 
 const String tForgetPasswordTitle="Make a Selection!";
-const String tForgetPasswordSubTitle="Do Not Forget the Password after Reseting!";
+const String tForgetPasswordSubTitle="Choose either of the options to reset. Do Not Forget the Password after Reseting!";
 const String tResetViaEmail="Reset via E-Mail Verification.";
+const String tResetViaPh="Reset via Mobile Number.";
 
 const String tForgetEmailTitle='Enter Your E-Mail Address';
 const String tForgetEmailSubTitle='So that we can work on resetting.';
@@ -54,5 +56,13 @@ const String tSegment="Segment";
 const String tErrorTitle = "Image is not Uploaded\n\n";
 const String tErrorSubTitle= 'Go back and Try again.';
 
+const String tpw = "Check you inbox!\n\n";
+const String tpws= 'An e-mail with a reset link has been sent to you.';
+
 const String tVerifyTitle = "Verify your Email\n\n";
 const String tVerifySTitle= 'An e-mail verification link has been sent to your e-mail. Please visit the link to redirect to the dashboard. Incase if you have given the wrong e-mail, please go back and register with a valid user';
+
+const String tedit="You cannot edit your details. If you need to edit, you should kindly ";
+const String treq="Send a Request.";
+
+const String tprofile = "Profile";

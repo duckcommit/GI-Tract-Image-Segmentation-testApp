@@ -3,6 +3,7 @@ import "package:givison/src/constants/colors.dart";
 import "package:givison/src/constants/image_strings.dart";
 import "package:givison/src/constants/size.dart";
 import "package:givison/src/constants/text_strings.dart";
+import 'package:givison/src/features/authentication/screens/dashboard/profile.dart';
 import 'package:givison/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:givison/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
@@ -16,16 +17,18 @@ import 'dart:convert';
 import 'package:givison/src/features/authentication/screens/dashboard/DataModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:givison/src/features/authentication/screens/dashboard/profile.dart';
 
 class Dashboard extends StatefulWidget{
   const Dashboard({Key? key}): super(key: key);
 
+  
   @override
   State<Dashboard> createState()=> _DashboardState();
 }
 
 Future<DataModel> submitData(String imageUrl)async{
+  
   final uri = Uri.parse('http://4.154.41.19:8000/predict');
     Map<String,String> headers = {'Content-Type':'application/json'};
 final msg = jsonEncode({"image": imageUrl});
@@ -45,14 +48,10 @@ final msg = jsonEncode({"image": imageUrl});
   var file =File(path);
   var res = await http.get(Uri.parse(valueVar));
   file.writeAsBytes(res.bodyBytes);
-  Fluttertoast.showToast(msg: "Downloaded!");
   if (response.statusCode==200){
     String responseString = response.body;
     return dataModelFromJson(responseString);
   }
-  else{
-    print("ERROR!");
-  };
   String responseString = "";
   return dataModelFromJson(responseString);
 }
@@ -62,6 +61,8 @@ class _DashboardState extends State<Dashboard>{
   DataModel? _dataModel; 
   File? image;
   String imageUrl='';
+
+  bool isloading=false;
 
   @override
   Widget build(BuildContext context){
@@ -76,7 +77,7 @@ class _DashboardState extends State<Dashboard>{
         actions: [
           Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: tCardBgColor),
-            child: IconButton(onPressed: (){},
+            child: IconButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=> ProfileScreen()));},
             icon: const Image(image: AssetImage(tman))),
           )
         ]
@@ -128,18 +129,30 @@ class _DashboardState extends State<Dashboard>{
                           onPressed: ()async{
                             if (imageUrl.length==0){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=> ErrorScreen()));
+                              isloading=false;
                             }
                             else{
+                              setState((){
+                              isloading=true;
+                              });
+                              Future.delayed(Duration(seconds: 20),(){
+                                setState((){
+                              isloading=false;
+                              });
+                              Fluttertoast.showToast(msg: "Downloaded!");
+                              });
+                        
                               final DataModel data = await submitData(imageUrl);
 
                               setState((){
                               _dataModel = data;
                               });
                               
+                              
           
                             };
                           },
-                          child: Text(tSegment.toUpperCase())
+                          child: isloading? CircularProgressIndicator(color:Colors.white):Text(tSegment.toUpperCase())
                         ),
                       ),
             ]
