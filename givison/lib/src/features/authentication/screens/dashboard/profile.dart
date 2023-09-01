@@ -141,7 +141,7 @@ _launchURL() async {
                         ),
                         validator: (value){
                           if(value!.isEmpty){
-                            return "Enter Valid Phone Number";
+                            return "Enter a Valid Phone Number";
                           }
                           return null;
                         },
