@@ -124,7 +124,7 @@ _launchURL() async {
                         ),
                         validator: (value){
                           if(value!.isEmpty){
-                            return "Enter email";
+                            return "Enter the email";
                           }
                           return null;
                         },
