@@ -158,7 +158,7 @@ _launchURL() async {
                         ),
                         validator: (value){
                           if(value!.isEmpty){
-                            return "Enter password";
+                            return "Enter the password";
                           }
                           return null;
                         },
