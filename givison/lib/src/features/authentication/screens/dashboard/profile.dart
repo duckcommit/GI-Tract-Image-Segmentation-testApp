@@ -55,7 +55,7 @@ void getData()async{
 _launchURL() async {
    final Uri url = Uri.parse('mailto:puthen1977@gmail.com');
    if (!await launchUrl(url)) {
-        throw Exception('Could not launch');
+        throw Exception('Could not launch the app');
     }
 }
   
