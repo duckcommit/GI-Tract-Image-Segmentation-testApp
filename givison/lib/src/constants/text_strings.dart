@@ -6,7 +6,7 @@ const String tOnBoardingTitle2='Login\n';
 const String tOnBoardingTitle3='Upload\n';
 
 const String tOnBoardingSubTitle1="Step 1: Register for an account using your organisations's email address.\n";
-const String tOnBoardingSubTitle2="Step 2: Log in to your account.\n\n\n";
+const String tOnBoardingSubTitle2="Step 2: Log in to your new account.\n\n\n";
 const String tOnBoardingSubTitle3="Step 3: Upload the image and get the segmented output.\n\n";
 
 const String tOnboardingCounter1='1/3';
