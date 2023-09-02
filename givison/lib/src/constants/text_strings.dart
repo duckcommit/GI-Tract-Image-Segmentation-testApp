@@ -1,7 +1,7 @@
 const String tAppName='GI Tract Image Segmentation';
 const String tAppTagLine='Learn to Code in Flutter.';
 
-const String tOnBoardingTitle1='Welcome to GI Vision, where we make image segmentation easy for you in three easy steps.\n';
+const String tOnBoardingTitle1='Welcome to GI Vision, where we make image segmentation easy for you in three simple steps.\n';
 const String tOnBoardingTitle2='Login\n';
 const String tOnBoardingTitle3='Upload\n';
 
